@@ -8,7 +8,7 @@
 #include <fstream>
 #include <stdexcept>
 #include <string>
-void ReadFromFile(std::string FileName, std::string &copyString);
+void ReadFromFileToString(std::string FileName, std::string &copyString);
 using namespace std;
 
 int main()
@@ -17,17 +17,29 @@ int main()
    std::string workingString;
    try
    {
-      ReadFromFile(filename, workingString);
+      ReadFromFileToString(filename, workingString);
    }
    catch(std::ios_base::failure &ex) { std::cerr << ex.what(); }
    catch(std::exception &ex) { std::cerr << ex.what(); }
 
-   std::cout << workingString;
+   const size_t SizeData = workingString.length();
+
+
+
+
+
+
+
+
+
+   std::cout << workingString << std::endl;
+   std::cout << workingString.length();
+
    // std::cin.get();
    return 0;
 }
 
-void ReadFromFile(std::string FileName, std::string &copyString)
+void ReadFromFileToString(std::string FileName, std::string &copyString)
 {
    std::fstream File;
    File.open(FileName.c_str(), std::ios_base::in);
@@ -44,5 +56,13 @@ void ReadFromFile(std::string FileName, std::string &copyString)
          throw std::ios_base::failure("Fail read data!");
 
       File.close();
+   }
+}
+void CheckFile(std::string FileName, const size_t Size)
+{
+   std::fstream File;
+   File.open(Filename.c_str(), std::ios_base::in | std::ios_base::out)
+   {
+
    }
 }
