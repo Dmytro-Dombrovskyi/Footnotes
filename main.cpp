@@ -61,40 +61,72 @@ void ReadFromFileToString(std::string FileName, std::string &copyString)
 
 void CheckFile(std::string FileName, const char delim/*, const size_t Size*/)
 {
-   std::string readString;
-   std::string footnotes;
+   std::string footString;
+   const size_t ArrSize = 10;
+   std::string footnotes[ArrSize];
+
+   std::string String_for_footnotes;
    std::string text;
 
-   int counter = 0;
-   std::fstream File1, File2, File_clear;
-   File1.open(FileName.c_str(), std::ios_base::in);
-   File2.open("tempfile.txt", std::ios_base::out | std::ios_base::trunc);
-   File_clear.open("clearfile.txt", std::ios_base::out | std::ios_base::trunc);
+   size_t total_counter = 0;
+   std::fstream CurrentFile, TemporaryFile, FootnotesFile;
+   CurrentFile.open(FileName.c_str(), std::ios_base::in);
+   TemporaryFile.open("TemporaryFile.txt", std::ios_base::out | std::ios_base::in | std::ios_base::trunc);
+   FootnotesFile.open("FootnotesFile.txt", std::ios_base::out | std::ios_base::in | std::ios_base::trunc);
    {
-      while(File1)
-      {
-         getline(File1, text, delim);
-         File_clear << text;
-         text.clear();
-         if(!File1.eof())
-         {
-            while(File1.peek() == delim && File1.get() == delim) continue;
-            File_clear <<"(" << (++counter) << ")";
 
-            File1 >> readString;
-            File2 << counter << ": "<< readString << std::endl;
+      size_t temp__counter = 0;
+
+      while(CurrentFile)
+      {
+
+         getline(CurrentFile, text, delim);
+         TemporaryFile << text;
+         text.clear();
+
+         temp__counter = 0;
+         if(!CurrentFile.eof())
+         {
+            while(CurrentFile.peek() == delim &&
+                  CurrentFile.get() == delim && ++temp__counter)  continue;
+
+            if(total_counter > temp__counter)
+            {
+               //int point = CurrentFile.tellg();
+               CurrentFile >> footString;
+               if(footnotes[temp__counter] != footString)
+               {
+                  throw(std::ios_base::failure("Error. Footnotes are repeated!"));
+               }
+               //else
+              // {
+              //    CurrentFile.seekg(-footString.length(), std::ios_base::cur);
+              // }
+            }
+            else
+            {
+               ++total_counter;
+
+               TemporaryFile <<"(" << total_counter << ")";
+
+               CurrentFile >> footString;
+               footnotes[total_counter] = footString;
+
+               FootnotesFile << total_counter << ": "<< footString << std::endl;
+            }
          }
       }
-      if(File1.eof())
+      if(CurrentFile.eof())
       {
-         File1.clear();
-         File1.close();
-         File2.close();
-         File_clear.close();
+         CurrentFile.close();
+         TemporaryFile.close();
+         FootnotesFile.close();
       }
       else
          throw(std::ios_base::failure("End of file wasn't reached!"));
    }
-   std::cout << text << std::endl;
-   std::cout << footnotes << std::endl;
+   for(size_t i = 0; i <= total_counter; ++i)
+   {
+      std::cout << footnotes[i] << std::endl;
+   }
 }
