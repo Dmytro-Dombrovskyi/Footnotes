@@ -14,7 +14,11 @@ class Footnotes
 {
 private:
    string file_;
-   size_t num_footnotes_;
+   string file_with_footnotes_;
+   int size_footnotes_array;
+   int num_footnotes_;
+
+   string *footnotes_;
 public:
 	//Footnotes() {}
 	Footnotes(const string);
@@ -23,9 +27,9 @@ public:
 
    //void WriteToFileString(const string write) {}
 	void CheckFootnotesInString(const char = '*');
-	
+	void CreateFileWithFootnotes() {}
    //void CopyFromFile(const string fileCopy){}
-   
+
 };
 
 #endif // FOOTNOTES_H_INCLUDED

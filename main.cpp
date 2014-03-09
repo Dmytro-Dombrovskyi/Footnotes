@@ -6,9 +6,17 @@
 int main()
 {
    //std::string name = "data.txt";
-   Footnotes file("D:\\GIT_REPO\\Footnotes\\data.txt");
+	try
+	{
+		Footnotes file("D:\\GIT_REPO\\Footnotes\\data.txt");
+		file.CheckFootnotesInString('*');
+	}
+	catch (std::exception &ex)
+	 {
+		std::cerr << ex.what();
+	 }
    //file.PrintFileInfo();
-   file.CheckFootnotesInString('*');
+   
 
    //const size_t SizeData = workingString.length();
 
