@@ -32,6 +32,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Footnotes.cpp" />
+		<Unit filename="Footnotes.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
