@@ -23,8 +23,10 @@ public:
 	//Footnotes() {}
 	Footnotes(const string);
     virtual ~Footnotes() {}
-	void PrintFileInfo() const { std::cout << file_; }
-
+	void PrintFileInfo() const
+	{ std::cout << file_; }
+   void PrintFootnotes() const;
+   void PrintFileWithFootnotes() const;
    //void WriteToFileString(const string write) {}
 	void CheckFootnotesInString(const char = '*');
 	void CreateFileWithFootnotes() {}

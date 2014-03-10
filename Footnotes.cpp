@@ -48,7 +48,7 @@ void Footnotes::CheckFootnotesInString(const char delim)
 		{
 			delim_counter = 0;
 			while (file_[i] == delim)
-			{				
+			{
 				++i;
 				if (file_[i] != delim) break;
 				++delim_counter;
@@ -77,12 +77,12 @@ void Footnotes::CheckFootnotesInString(const char delim)
 			// check footnotes and compare them
 			if(footnotes_counter > delim_counter)
 			{
-				if(footnotes_[delim_counter] == temp_footnotes)	
+				if(footnotes_[delim_counter] == temp_footnotes)
 					text.append(warning_footnotes);
 				else
-				{					
+				{
 					throw std::ios_base::failure
-						("Error! Footnotes aren't equal!");					
+						("Error! Footnotes aren't equal!");
 				}
 
 			}
@@ -96,10 +96,18 @@ void Footnotes::CheckFootnotesInString(const char delim)
 	}
 	size_footnotes_array = num_footnotes_;
 	num_footnotes_ = delim_counter;
+	file_with_footnotes_ = text;
+
+}
+void Footnotes::PrintFootnotes()
+{
 	std::cout << "Footnotes: " << std::endl;
 	for (int i = 0; i <= num_footnotes_; ++i)
 	{
 		std::cout << i << ": " << footnotes_[i] << std::endl;
 	}
-
+}
+void Footnotes::PrintFileWithFootnotes()
+{
+	std::cout << file_with_footnotes_;
 }
