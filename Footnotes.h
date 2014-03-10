@@ -13,24 +13,30 @@ using std::string;
 class Footnotes
 {
 private:
-   string file_;
+   string file_original_;
+   string file_without_footnotes_;
    string file_with_footnotes_;
-   int size_footnotes_array;
-   int num_footnotes_;
 
+   string warning_;
+
+   int num_footnotes_;
+   //int delim_counter;
+
+   int size_footnotes_array_;
    string *footnotes_;
+   void IncreaseFootnotesArray
+      (const int mult_value = 2);
+
+
 public:
 	//Footnotes() {}
-	Footnotes(const string);
+	Footnotes(const string, const string = "()*");
     virtual ~Footnotes() {}
-	void PrintFileInfo() const
-	{ std::cout << file_; }
+	void PrintFileOriginal() const;
+	void PrintFileWithFootnotes() const;
    void PrintFootnotes() const;
-   void PrintFileWithFootnotes() const;
-   //void WriteToFileString(const string write) {}
-	void CheckFootnotesInString(const char = '*');
-	void CreateFileWithFootnotes() {}
-   //void CopyFromFile(const string fileCopy){}
+
+   void MakeFileWithFootnotes(const char = '*');
 
 };
 
