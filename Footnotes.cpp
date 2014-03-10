@@ -81,7 +81,15 @@ void Footnotes::MakeFileWithFootnotes(const char delim)
 				if (isspace(file_original_[i])) break;
 			}
 			// check footnotes and compare information on them
-			if(num_footnotes_ > delim_counter)
+			if(num_footnotes_ <= delim_counter || footnotes_[delim_counter] == "")
+			{
+				footnotes_[delim_counter] = temp_footnotes;
+				if(num_footnotes_ < delim_counter) 
+					num_footnotes_ = delim_counter;
+				file_without_footnotes_.append("()");
+				temp_footnotes.clear();
+			}			
+			else
 			{
 				if(footnotes_[delim_counter] == temp_footnotes)
 					file_without_footnotes_.append(warning_);
@@ -90,13 +98,6 @@ void Footnotes::MakeFileWithFootnotes(const char delim)
 					throw std::ios_base::failure
 						("Error! Footnotes aren't equal!");
 				}
-			}
-			else  // write footnotes in array
-			{
-				footnotes_[delim_counter] = temp_footnotes;
-				++num_footnotes_;
-				file_without_footnotes_.append("()");
-				temp_footnotes.clear();
 			}
 		}
 	}
@@ -119,4 +120,9 @@ void Footnotes::PrintFootnotes() const
 void Footnotes::PrintFileWithFootnotes() const
 {
 	std::cout << file_with_footnotes_;
+}
+
+void Footnotes::PrintFileWithoutFootnotes( ) const
+{
+	std::cout << file_without_footnotes_;
 }

@@ -23,9 +23,7 @@ private:
    //int delim_counter;
 
    int size_footnotes_array_;
-   string *footnotes_;
-   void IncreaseFootnotesArray
-      (const int mult_value = 2);
+   string *footnotes_; 
 
 
 public:
@@ -35,9 +33,13 @@ public:
 	void PrintFileOriginal() const;
 	void PrintFileWithFootnotes() const;
    void PrintFootnotes() const;
+	void PrintFileWithoutFootnotes( ) const;
 
    void MakeFileWithFootnotes(const char = '*');
-
+	void IncreaseFootnotesArray
+		(const int mult_value = 2);
+	int getNumFootnotes( ) const
+	{ return num_footnotes_; }
 };
 
 #endif // FOOTNOTES_H_INCLUDED

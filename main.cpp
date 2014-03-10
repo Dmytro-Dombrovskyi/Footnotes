@@ -11,6 +11,9 @@ int main()
 		Footnotes file("E:\\GIT_REPO\\Footnotes\\data.txt");
 		file.MakeFileWithFootnotes('*');
 		//file.PrintFileOriginal( );
+		file.PrintFileWithoutFootnotes( );
+		file.PrintFootnotes( );
+		std::cout << "Num Footnotes: " << file.getNumFootnotes( ) << std::endl;
 	}
 	catch (std::exception &ex)
 	{
