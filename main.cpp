@@ -1,32 +1,34 @@
 #include "Footnotes.h"
-//#include <strstream>
 
 //void CheckFile(std::string FileName, const char delim = '*'/*, const size_t Size*/);
 
 int main()
 {
-   //std::string name = "data.txt";
+   std::string name_of_file = "E:\\GIT_REPO\\Footnotes\\dataOut.txt";
 	try
 	{
 		Footnotes file("E:\\GIT_REPO\\Footnotes\\data.txt");
 		file.MakeFileWithFootnotes('*');
 		//file.PrintFileOriginal( );
-		file.PrintFileWithoutFootnotes( );
+		file.PrintFileWithFootnotes( );
 		file.PrintFootnotes( );
 		std::cout << "Num Footnotes: " << file.getNumFootnotes( ) << std::endl;
+		//file.MakeFileFootnotes();
+		//file.PrintFootnotes();
+		file.CreateFileWithFootnotes(name_of_file);
 	}
-	catch (std::exception &ex)
-	{
-	std::cerr << ex.what();
-	}
-   
+	catch(std::ios_base::failure &ex) { std::cerr << ex.what( ); }
+	catch(std::exception &ex) { std::cerr << ex.what( ); }
+
 	std::cout << "Done!" << std::endl;
    std::cin.get();
    return 0;
 }
 
 
-
+// this is the function wich work with files txt, but i try to use the classes with strings
+// because in this func I need to use three txt files instead in class i work with memory and 
+// class string.
 //void CheckFile(std::string FileName, const char delim/*, const size_t Size*/)
 //{
 //   std::string footString;
