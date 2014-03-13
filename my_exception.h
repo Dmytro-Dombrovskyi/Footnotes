@@ -7,56 +7,66 @@
 #include <cstdlib>
 using std::string;
 
-namespace exception_footnotes 
+namespace exception_footnotes
 {
-	class fail_open_file : public std::exception 
+	class fail_open_file
 	{
 	private:
-		std::string file_;
-		std::string str_problem;
+		string file_;
+		string str_problem;
 	public:
 		explicit fail_open_file (string i_filename,
 			const char * i_problem = "Error! Couldn't open file: ") :
 			file_ (i_filename), str_problem (i_problem) {	}
-		const char * what () 
+		string what () const 
 		{
-			std::string temp = str_problem + file_;
-			return temp.c_str ();
+			string temp = str_problem + file_;
+			return temp;
 		}
 	};
 
-	class eof_wasnt_reached : public std::exception 
+	class eof_wasnt_reached
 	{
 	private:
-		std::string file_name_;
+		string file_name_;
 	public:
 		explicit eof_wasnt_reached (string i_filename) :
 			file_name_ (i_filename) {}
-		const char * what () 
+		string what () const 
 		{
-			std::string problem =
+			string problem =
 				"Error! End of file wasn't reached in file: ";
-			return problem.append (file_name_).c_str();
+			return problem.append (file_name_);
 		}
 	};
 
-	class footnotes_not_equals : public std::exception 
+	class footnotes_not_equals
 	{
 	private:
 		string footnotes1_;
 		string footnotes2_;
-	public:
-		footnotes_not_equals (string i_footnotes1, string i_footnotes2)
-			: footnotes1_ (i_footnotes1), footnotes2_ (i_footnotes2) {}
-		const char * what () 
-		{
-			string problem = "Error! Footnotes aren't equal: ";
-			problem.append (footnotes1_).append (" != ").append (footnotes2_);			
-			return problem.c_str ();
+		string problem_;
+	public:		
+		footnotes_not_equals (string i_footnotes1, string i_footnotes2,
+			string i_problem = "Error! Footnotes aren't equal: ")
+			: footnotes1_ (i_footnotes1), footnotes2_ (i_footnotes2),
+				problem_(i_problem) { }
+		virtual string what () const
+		{			
+			string what_str = problem_ + footnotes1_ + " != " + footnotes2_;			
+			return what_str;
 		}
 	};
-
-
+	//////////////////////////////////////////////////////////
+	class fail : public std::ios_base::failure {
+	public:
+		fail () : failure("Footnotes aren't equal!") {}
+		//const char* what () const
+		//{ 			
+		//	return "footnotes aren't equal!";
+		//}
+	};
+	///////////////////////////////////////////////////////////
 }
 
 #endif // MY_EXCEPTION_H

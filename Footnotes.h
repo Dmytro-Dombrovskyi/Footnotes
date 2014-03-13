@@ -27,8 +27,7 @@ private:
 	{
 		return (size_footnotes_array_ >= value) ? true : false;
 	}
-	inline void PutFootnotesIntoArray(const int number, 
-																		const string copy_footnotes)
+	void PutFootnotesIntoArray(const int number, const string copy_footnotes)
 	{
 		footnotes_[number] = copy_footnotes;
 	}
@@ -41,7 +40,7 @@ private:
 	{		
 		num_footnotes_ = value;	
 	}
-	void AddFootnotesNumberToFile( );
+	void AddFootnotesNumberToFile( const int );
 	void CompareFootnotesWithCounter(const int delim_counter, 
 																	 const string temp_footnotes);
 	void IncreaseFootnotesArray

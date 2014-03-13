@@ -15,8 +15,8 @@ int main()
 		//file.PrintFootnotes ();
 		file.PrintFileWithFootnotes ();
 	}
-	//catch(fail_open_file &ex) { std::cerr << ex.what (); }
-	//catch(eof_wasnt_reached &ex)	{ std::cerr << ex.what (); }	
+	catch(fail_open_file &ex) { std::cerr << ex.what (); }
+	catch(eof_wasnt_reached &ex)	{ std::cerr << ex.what (); }	
 	catch(footnotes_not_equals &ex) { std::cerr << ex.what (); }
 	catch(std::ios_base::failure &ex) { std::cerr << ex.what( ); }
 	catch(std::exception &ex)	{ std::cerr << ex.what( ); }

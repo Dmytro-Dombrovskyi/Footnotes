@@ -75,7 +75,7 @@ void Footnotes::CompareFootnotesWithCounter(const int delim_counter,
 	{
 		PutFootnotesIntoArray(delim_counter, temp_footnotes);
 		AddNumFootnotes(delim_counter);
-		AddFootnotesNumberToFile();
+		AddFootnotesNumberToFile(delim_counter + 1);
 	}
 	else
 	{
@@ -85,14 +85,15 @@ void Footnotes::CompareFootnotesWithCounter(const int delim_counter,
 		{
 			throw exception_footnotes::footnotes_not_equals
 				(footnotes_[delim_counter], temp_footnotes);
+			//throw exception_footnotes::fail ();
 		}
 	}
 }
 // add number in ( ) of footnotes in file_with_footnotes
-void Footnotes::AddFootnotesNumberToFile () {
+void Footnotes::AddFootnotesNumberToFile (const int value) {
 	file_with_footnotes_.push_back ('(');
 	std::stringstream ss;
-	ss << num_footnotes_;
+	ss << value;
 	file_with_footnotes_.append (ss.str ());
 	file_with_footnotes_.push_back (')');
 }
